@@ -2,7 +2,7 @@ using System;
 
 class Problem2
 {
-    static void Main(String[] args)
+    static void Main(string[] args)
     {
         int t = Convert.ToInt32(Console.ReadLine());
         for (int a0 = 0; a0 < t; a0++)
