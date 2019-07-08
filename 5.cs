@@ -4,10 +4,10 @@ class Solution
 {
     static void Main(string[] args)
     {
-        int t = Convert.ToInt32(Console.ReadLine());
+        int t = int.Parse(Console.ReadLine());
         for(int a0 = 0; a0 < t; a0++)
         {
-            int n = Convert.ToInt32(Console.ReadLine());
+            int n = int.Parse(Console.ReadLine());
 
             int numerator = n;
             while (!TestQuotients(n, numerator))
