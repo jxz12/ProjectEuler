@@ -4,10 +4,10 @@ class Solution
 {
     static void Main(string[] args)
     {
-        int t = Convert.ToInt32(Console.ReadLine());
+        int t = int.Parse(Console.ReadLine());
         for(int a0 = 0; a0 < t; a0++)
         {
-            long n = Convert.ToInt64(Console.ReadLine());
+            long n = int.Parse(Console.ReadLine());
 
             Console.WriteLine(LargestFactor(n));
         }
