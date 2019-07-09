@@ -2,7 +2,7 @@ using System;
 
 class Problem8
 {
-    static void Main(String[] args)
+    static void Main(string[] args)
     {
         int t = int.Parse(Console.ReadLine());
         for(int a0 = 0; a0 < t; a0++)
