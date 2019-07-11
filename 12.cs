@@ -7,7 +7,7 @@ class Problem12
         int t = int.Parse(Console.ReadLine());
 
         int[] allDivisors = AllDivisors(1000);
-        for(int a0 = 0; a0 < t; a0++)
+        for (int a0 = 0; a0 < t; a0++)
         {
             int n = int.Parse(Console.ReadLine());
             Console.WriteLine(Triangulate(allDivisors[n]));
