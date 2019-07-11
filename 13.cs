@@ -6,7 +6,7 @@ class Problem13
     {
         int t = int.Parse(Console.ReadLine());
         string sum = "";
-        for(int a0 = 0; a0 < t; a0++)
+        for (int a0 = 0; a0 < t; a0++)
         {
             string toAdd = Console.ReadLine();
             sum = Add(sum, toAdd);
