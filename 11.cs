@@ -5,7 +5,7 @@ class Problem11
     static void Main(string[] args)
     {
         int[,] grid = new int[20,20];
-        for(int grid_i = 0; grid_i < 20; grid_i++)
+        for (int grid_i = 0; grid_i < 20; grid_i++)
         {
             string[] grid_row = Console.ReadLine().Split(' ');
             for (int grid_j = 0; grid_j < 20; grid_j++)
