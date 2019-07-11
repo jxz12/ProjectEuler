@@ -7,7 +7,7 @@ class Problem7
         int t = int.Parse(Console.ReadLine());
 
         int[] primes = NthPrimes(10000); // hacky, but in the spec
-        for(int a0 = 0; a0 < t; a0++)
+        for (int a0 = 0; a0 < t; a0++)
         {
             int n = int.Parse(Console.ReadLine());
             Console.WriteLine(primes[n-1]);
