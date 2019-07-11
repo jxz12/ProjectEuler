@@ -6,7 +6,7 @@ class Problem10
     {
         int t = int.Parse(Console.ReadLine());
         long[] cumul = PrimesCumulative(1000000);
-        for(int a0 = 0; a0 < t; a0++)
+        for (int a0 = 0; a0 < t; a0++)
         {
             int n = int.Parse(Console.ReadLine());
             Console.WriteLine(cumul[n-1]);
