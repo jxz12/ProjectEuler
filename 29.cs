@@ -3,22 +3,57 @@ using System.Collections.Generic;
 
 class Problem29
 {
+    // I'll have my own HashSet... with blackjack and hookers...
+    public class BoolMatrix
+    {
+        private Dictionary<int, uint[]> matrix;
+        private int numCells;
+        public BoolMatrix(int size)
+        {
+            numCells = (int)Math.Ceiling((double)size / 32);
+            matrix = new Dictionary<int, uint[]>();
+        }
+        public void SetTrue(int row, int col)
+        {
+            row -= 1;
+            col -= 1;
+            if (!matrix.ContainsKey(row))
+            {
+                matrix[row] = new uint[numCells];
+            }
+            matrix[row][col/32] |= (uint)(1 << (col%32));
+        }
+        public long CountTrues()
+        {
+            long trues = 0;
+            foreach (var row in matrix.Values)
+            {
+                for (int i=0; i<row.Length; i++)
+                {
+                    trues += CountBits(row[i]);
+                }
+            }
+            return trues;
+        }
+        private int CountBits(uint n)
+        {
+            int count = 0;
+            while (n > 0)
+            {
+                n &= n-1;
+                count += 1;
+            }
+            return count;
+        }
+    }
     static void Main(string[] args)
     {
         int N = int.Parse(Console.ReadLine());
 
-        // used to track which exponents are repeats
-        var repeats = new Dictionary<int, HashSet<int>>();
-        long numRepeats = 0;
-
-        for (int i=2; i<=N; i++)
+        var matrix = new BoolMatrix(N);
+        int i = 2;
+        while (i*i <= N)
         {
-            if (repeats.ContainsKey(i))
-            {
-                numRepeats += repeats[i].Count;
-                repeats.Remove(i);
-            }
-
             int j_exp = 1; // exponent of i to get to j
             long j = i;
             while (j <= N)
@@ -33,11 +68,10 @@ class Problem29
                     int k_expexp = j_exp;
                     while (j_expexp <= N)
                     {
-                        if (!repeats.ContainsKey((int)k))
-                            repeats[(int)k] = new HashSet<int>();
                         if (k_expexp > 1)
-                            repeats[(int)k].Add(k_expexp);
-
+                        {
+                            matrix.SetTrue((int)k, k_expexp);
+                        }
                         j_expexp += k_exp;
                         k_expexp += j_exp;
                     }
@@ -47,7 +81,8 @@ class Problem29
                 j_exp += 1;
                 j *= i;
             }
+            i += 1;
         }
-        Console.WriteLine((long)(N-1)*(long)(N-1) - numRepeats);
+        Console.WriteLine((long)(N-1)*(long)(N-1) - matrix.CountTrues());
     }
 }
