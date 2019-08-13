@@ -1,53 +1,51 @@
 using System;
+using System.Collections.Generic;
 
 class Problem29
 {
     static void Main(string[] args)
     {
-        int N = int.Parse(Console.ReadLine());
+        long N = long.Parse(Console.ReadLine());
 
-        // TODO: change this into a hashset of sorts
-        var repeats = new bool[N+1, N+1]; // used to track which exponents are repeats
+        // used to track which exponents are repeats
+        var repeats = new Dictionary<long, HashSet<long>>();
 
-        for (int i=2; i<=N; i++)
+        for (long i=2; i<=N; i++)
         {
-            int j_exp = 1; // exponent of i to get to j
-            int j = (int)Math.Pow(i, j_exp);
+            long j_exp = 1; // exponent of i to get to j
+            long j = i;
             while (j <= N)
             {
-                int k_exp = j_exp + 1; // further exponents
-                int k = (int)Math.Pow(i, k_exp);
+                // j and k loop through all pairs of exponents of i
+                long k_exp = j_exp + 1;
+                long k = j*i;
                 while (k <= N)
                 {
-                    int j_expexp = k_exp;
-                    int k_expexp = j_exp;
+                    // j_ and k_expexp follow a formula for overlaps
+                    long j_expexp = k_exp;
+                    long k_expexp = j_exp;
                     while (j_expexp <= N)
                     {
-                        // Console.WriteLine("j:" + j + " k:" + k + "_j:" + j_expexp + "_k:" + k_expexp);
-                        repeats[k, k_expexp] = true;
+                        if (!repeats.ContainsKey(k))
+                            repeats[k] = new HashSet<long>();
+                        if (k_expexp > 1)
+                            repeats[k].Add(k_expexp);
+
                         j_expexp += k_exp;
                         k_expexp += j_exp;
                     }
                     k_exp += 1;
-                    k = (int)Math.Pow(i, k_exp);
+                    k *= i;
                 }
                 j_exp += 1;
-                j = (int)Math.Pow(i, j_exp);
+                j *= i;
             }
         }
-        int totalRepeats = 0;
-        for (int i=2; i<=N; i++)
+        long totalRepeats = 0;
+        foreach (var _repeats in repeats.Values)
         {
-            for (int i_exp=2; i_exp<=N; i_exp++)
-            {
-                if (repeats[i, i_exp] == true)
-                {
-                    // Console.WriteLine(Math.Pow(i, i_exp));
-                    totalRepeats += 1;
-                }
-            }
+            totalRepeats += _repeats.Count;
         }
-        // Console.WriteLine(totalRepeats);
         Console.WriteLine((N-1)*(N-1) - totalRepeats);
     }
 }
