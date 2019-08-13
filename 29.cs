@@ -10,6 +10,7 @@ class Problem29
         private int numCells;
         public BoolMatrix(int size)
         {
+            // each 'cell' is used as an array of 32 bools 
             numCells = (int)Math.Ceiling((double)size / 32);
             matrix = new Dictionary<int, uint[]>();
         }
@@ -35,6 +36,7 @@ class Problem29
             }
             return trues;
         }
+        // Kernighan's algorithm
         private int CountBits(uint n)
         {
             int count = 0;
