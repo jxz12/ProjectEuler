@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 class Problem33
 {
@@ -10,39 +9,53 @@ class Problem33
         int N = both[0] - '0';
         int K = both[2] - '0';
 
-        int min = (int)Math.Pow(10, N);
-        int max = (int)Math.Pow(10, N+1) - 1;
-        int numSum = 0;
-        int denSum = 0;
-        for (int num=min; num<=max-1; num++)
+        int min = (int)Math.Pow(10, N-1);
+        int max = (int)Math.Pow(10, N)-1;
+        int topSum = 0;
+        int botSum = 0;
+        for (int top=min; top<=max-1; top++)
         {
-            for (int den=num+1; den<max; den++)
+            for (int bot=top+1; bot<max; bot++)
             {
-                if (CanCancel(num, den, K))
+                if (CanCancel(top, bot, K))
                 {
-                    numSum += num;
-                    denSum += den;
+                    // Console.WriteLine(top+" "+bot);
+                    topSum += top;
+                    botSum += bot;
                 }
             }
         }
-        Console.WriteLine(numSum + " " + denSum);
+        Console.WriteLine(topSum + " " + botSum);
     }
     // if the top and bottom share more than K digits (not zeros)
-    static bool CanCancel(int num, int den, int K)
+    static bool CanCancel(int top, int bot, int K)
     {
-        var numHash = new HashSet<char>(num.ToString());
-        int shared = 0;
-        foreach (char c in den.ToString())
+        return _CanCancel(top.ToString(), bot.ToString(), K, top, bot);
+    }
+    static bool _CanCancel(string top, string bot, int K, int _top, int _bot)
+    {
+        if (K == 0)
         {
-            if (c != '0' && numHash.Contains(c))
+            int __top = int.Parse(top);
+            int __bot = int.Parse(bot);
+            return __top!=0 && __bot!=0 && __top*_bot == _top*__bot;
+        }
+        else
+        {
+            int n = top.Length;
+            for (int i=0; i<n; i++)
             {
-                shared += 1;
-                if (shared == K)
+                for (int j=0; j<n; j++)
                 {
-                    return true;
+                    if (top[i] == bot[j] && top[i] != '0' &&
+                        _CanCancel(top.Remove(i,1), bot.Remove(j,1), K-1, _top, _bot))
+                    {
+                        // Console.WriteLine(top.Remove(i,1)+" "+bot.Remove(j,1));
+                        return true;
+                    }
                 }
             }
+            return false;
         }
-        return false;
     }
 }
