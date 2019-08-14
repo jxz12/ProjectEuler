@@ -4,38 +4,32 @@ class Problem31
 {
     static void Main(string[] args)
     {
-        memo = new long[100001];
-        memo[0] = 1;
+        int[] coins = new int[]{ 1,2,5,10,20,50,100,200 };
+        var memo = Change(100001, coins);
 
         int t = int.Parse(Console.ReadLine());
         for (int a0 = 0; a0 < t; a0++)
         {
             int n = int.Parse(Console.ReadLine());
-            Console.WriteLine(Change(n, int.MaxValue));
+            Console.WriteLine(memo[n]);
         }
-        // Console.WriteLine(Change(5));
     }
-    static long[] memo; // for dynamic programming
-    static int[] pennies = new int[]{ 1,2,5,10,20,50,100,200 };
 
-    static long Change(int total, int lastUsed)
+    // returns memoisation table
+    static int[] Change(int total, int[] coins)
     {
-        if (memo[total] != 0)
+        var memo = new int[total+1];
+        memo[0] = 1;
+        foreach (int coin in coins)
         {
-            return memo[total];
-        }
-        else
-        {
-            long ways = 0;
-            foreach (int penny in pennies)
+            // the number of choices when adding this coin
+            // is the number of choices without the coin, plus
+            //    the number of choices with the reduced total
+            for (int i=coin; i<=total; i++)
             {
-                if (total >= penny && penny <= lastUsed)
-                {
-                    ways += Change(total - penny, penny);
-                }
+                memo[i] = (memo[i] + memo[i-coin]) % 1000000007;
             }
-            memo[total] = ways;
-            return ways;
         }
+        return memo;
     } 
 }
