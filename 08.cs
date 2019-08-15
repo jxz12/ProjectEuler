@@ -5,7 +5,7 @@ class Problem8
     static void Main(string[] args)
     {
         int t = int.Parse(Console.ReadLine());
-        for (int a0 = 0; a0 < t; a0++)
+        while (t-- > 0)
         {
             string[] tokens_n = Console.ReadLine().Split(' ');
             int n = int.Parse(tokens_n[0]);
