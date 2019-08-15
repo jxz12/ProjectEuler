@@ -4,7 +4,7 @@ class Problem7
 {
     static void Main(string[] args)
     {
-        int[] primes = NthPrimes(10000); // hacky, but in the spec
+        int[] primes = NthPrimes(10000); // hacky, but in the specification
         
         int t = int.Parse(Console.ReadLine());
         while (t-- > 0)
