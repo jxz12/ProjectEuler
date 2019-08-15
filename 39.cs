@@ -22,7 +22,7 @@ class Problem39
         }
 
         int t = int.Parse(Console.ReadLine());
-        for (int _ = 0; _ < t; _++)
+        while (t-- > 0)
         {
             int n = int.Parse(Console.ReadLine());
             Console.WriteLine(pCount[n]);
