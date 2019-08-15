@@ -5,7 +5,7 @@ class Solution
     static void Main(string[] args)
     {
         int t = int.Parse(Console.ReadLine());
-        for (int a0 = 0; a0 < t; a0++)
+        while (t-- > 0)
         {
             int n = int.Parse(Console.ReadLine());
             Console.WriteLine(PythagoreanTriplet(n));
